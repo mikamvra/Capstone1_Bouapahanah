@@ -11,7 +11,7 @@ public class FileManager {
         List<Transaction> transactions = new ArrayList<>();
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("transactions.csv"));
+            BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/transactions.csv"));
 
             String line;
 
@@ -41,7 +41,7 @@ public class FileManager {
     }
     public static void writetransaction(Transaction transaction){
         try{
-            File file = new File("transactions.csv");
+            File file = new File("src/main/resources/transactions.csv");
             FileWriter fileWriter = new FileWriter(file, true);
             if (file.length() > 0) {
                 fileWriter.write(System.lineSeparator());

@@ -12,8 +12,6 @@ import java.util.Scanner;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static Scanner input = new Scanner(System.in);
-    public static FileManager file = new FileManager();
-
     public static void main(String[] args) {
         List<Transaction> transactions = FileManager.transactions();
 
@@ -46,7 +44,7 @@ public class Main {
 
     public static void addTransaction(Scanner input, boolean addDeposit) {
         try {
-            FileWriter writer = new FileWriter("transactions.csv", true);
+            FileWriter writer = new FileWriter("src/main/resources/transactions.csv", true);
 
 
             System.out.println("Add Description: ");
@@ -55,7 +53,7 @@ public class Main {
             String name = Main.input.nextLine();
             System.out.println("Amount: ");
             double amount = Main.input.nextDouble();
-            Main.input.nextDouble();
+            input.nextLine();
 
             if (!addDeposit) amount *= -1;
             String date = LocalDate.now().toString();
@@ -99,7 +97,8 @@ public class Main {
     public static void displayLedger(String type) {
         List<Transaction> transactions = FileManager.transactions();
 
-        for (Transaction t: transactions){
+        for (int i = transactions.size() - 1; i >= 0; i--){
+            Transaction t = transactions.get(i);
             boolean shouldPrint = false;
 
             if (type.equals("All")) shouldPrint = true;
@@ -107,7 +106,7 @@ public class Main {
             else if (type.equals("Payment") && t.getAmount() < 0 ) shouldPrint = true;
 
             if (shouldPrint)
-            System.out.printf("%t | %t | %s | %s | %s | %.2f",t.getDate(), t.getTime(), t.getDescription(), t.getName(), t.getAmount());
+            System.out.printf("%tD | %tr | %s | %s | %.2f%n",t.getDate(), t.getTime(), t.getDescription(), t.getName(), t.getAmount());
         }
 
 
